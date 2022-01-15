@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block main %}
+{#    {{ request.user.username }}#}
+    {% for follow in object_list %}
+        {{ follow }}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+    <h2>記事修正</h2>
+
+    <form method="post">
+        {% csrf_token %}
+{#        <input type="hidden" name="next">#}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="更新" %}
+        <a class="btn btn-primary" href="{% url 'accounts:list_profile' %}">キャンセル</a>
+    </form>
+
+
+{% endblock %}

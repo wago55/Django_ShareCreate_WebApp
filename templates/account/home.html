@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block main %}
+     <link rel="stylesheet" type="text/css" href="{% static 'share_create/css/style.css' %}"/>
+    <h2>ホーム</h2>
+
+    <form method="get">
+        <input class="input" type="text" name="query" placeholder="タグで検索..." >
+        {% bootstrap_button button_type="submit" content="検索" %}
+    </form>
+{#{{ request.user.id }}　{{ request.user.is_authenticated }}#}
+    <div class="container mt-3">
+        {% for article in object_list %}
+            <div class="alert alert-success" role="alert">
+                <p>タイトル:<a href="{% url 'share_create:detail_article' article.pk %}">{{ article.title }}</a></p>
+                <p>投稿者:<a href="{% url 'accounts:detail_profile' article.user_id %}">{{ article.user.username }}</a></p>
+
+                {% if request.user in article.fav.all %}
+                    <a href="{% url 'share_create:fav_home' article.pk %}" >いいね</a>{{article.fav.count}}
+                {% else %}
+                    <a href="{% url 'share_create:fav_home' article.pk %}">いいね</a>{{article.fav.count}}
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

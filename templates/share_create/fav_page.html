@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block main %}
+    <h2>お気に入りした記事</h2>
+{#    {{ request.user.username }}#}
+    {% for fav_page in all_fav_page %}
+        <p></p>
+        <a href="{% url 'share_create:detail_article' fav_page.pk %}">{{ fav_page.title }}</a>
+{#        {{ fav_page }}#}
+{#        {{ fav_page.title }}#}
+        <p></p>
+    {% endfor %}
+{% endblock %}

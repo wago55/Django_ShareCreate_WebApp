@@ -1,0 +1,58 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ShareCreate</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}" >
+        {% block extraheader %}{% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand flex-md-row navbar-dark bg-dark">
+            <div class="container justify-content-between">
+                <a href="{% url 'accounts:home' %}" class="navbar-brand">ShareCreate</a>
+                <ul class="navbar-nav mr-md-2">
+                    {% if request.user.is_authenticated  %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'accounts:list_profile' %}">ユーザ情報</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'accounts:inquiry' %}">お問い合わせ</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">ログイン</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">会員登録</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'accounts:inquiry' %}">お問い合わせ</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+{#    ここはいずれ変更    #}
+        {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="my-div-style w-100">
+                    <ul class="messages" style="list-style: none;">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}">
+                            {% endif %}
+                            {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <main>
+            <div class="container">
+                {% block main %}{% endblock %}
+            </div>
+        </main>
+    </body>
+</html>

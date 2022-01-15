@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block main %}
+    <h2>ログイン</h2>
+
+    <form method="post">
+        {% csrf_token %}
+{#        <input type="hidden" name="next">#}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="ログイン" %}
+    </form>
+
+    {% load account socialaccount %}
+
+    {% get_providers as socialaccount_providers %}
+
+    {% if socialaccount_providers %}
+
+    <div class="socialaccount_ballot">
+
+        <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+
+    </div>
+
+    {% endif %}
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+    <a href="{% url 'account_reset_password' %}">パスワードを忘れた場合はこちら</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+main {
+    padding: 2rem 0;
+
+}
+
+.profile {
+    width: 40%;
+
+}
+
+.article {
+    width: 60%;
+}
+
+.profile-articlelist {
+    display: flex;
+}
+
+.btn-danger{
+    justify-content: center;
+}
